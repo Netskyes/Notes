@@ -1,0 +1,145 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+body {
+  background: #F5F5F1; }
+
+.container {
+  max-width: 1200px;
+  padding: 12px;
+  margin: 100px auto;
+  overflow: auto;
+  background: #FFF;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #EAEAEA;
+  border-radius: 2px;
+  position: relative; }
+
+.header {
+  padding-bottom: 12px; }
+  .header > span {
+    display: block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.95em;
+    font-weight: 200;
+    color: #555;
+    cursor: default; }
+
+.input, .note-box .note-props > input[type="text"], .note-box textarea {
+  padding: 6px;
+  border: 0;
+  outline: none; }
+
+.note-box {
+  float: right;
+  width: 780px; }
+  .note-box .note-props {
+    height: 46px;
+    padding-bottom: 12px;
+    border-bottom: 1px Solid #EEE;
+    margin-bottom: 12px; }
+    .note-box .note-props > input[type="text"] {
+      width: 100%;
+      height: 42px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.35em;
+      font-weight: 400;
+      color: #444; }
+  .note-box textarea {
+    width: 100%;
+    min-height: 360px;
+    margin-bottom: 12px;
+    resize: vertical;
+    border-bottom: 1px Solid #EEE;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9em;
+    font-weight: 400;
+    color: #666; }
+
+.note-side-container {
+  float: left;
+  width: 340px; }
+  .note-side-container .header {
+    position: relative; }
+    .note-side-container .header > .button {
+      position: absolute;
+      top: 0;
+      right: 0; }
+
+.note-list {
+  max-height: 650px;
+  overflow-y: auto; }
+  .note-list .note-container {
+    position: relative;
+    padding: 17px;
+    border: 1px Solid transparent;
+    border-bottom: 1px Solid #EEE;
+    cursor: pointer; }
+    .note-list .note-container:hover {
+      background: #F9F9F9;
+      border: 1px Solid #EAEAEA; }
+      .note-list .note-container:hover > .note-options {
+        display: block; }
+    .note-list .note-container .note-name {
+      margin-bottom: 6px;
+      max-height: 54px;
+      overflow: hidden;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.2em;
+      font-weight: 400;
+      color: #222;
+      word-wrap: break-word; }
+    .note-list .note-container .note-date {
+      margin-bottom: 6px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.75em;
+      font-weight: 400;
+      color: #999; }
+    .note-list .note-container .note-content {
+      max-height: 51px;
+      overflow: hidden;
+      line-height: 17px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.82em;
+      font-weight: 400;
+      color: #777;
+      word-wrap: break-word; }
+    .note-list .note-container .note-options {
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 28px; }
+      .note-list .note-container .note-options > div {
+        width: 28px;
+        height: inherit; }
+      .note-list .note-container .note-options .note-remove {
+        background: url("images/x-button.png") center top no-repeat;
+        background-position: center -8px; }
+        .note-list .note-container .note-options .note-remove:hover {
+          background-position: center -52px; }
+
+.note-view {
+  width: 600px;
+  height: 500px;
+  background: #000; }
+
+.button {
+  display: block;
+  padding: 8px 14px;
+  border: 1px Solid #357EBD;
+  background: #428BCA;
+  line-height: 1.4;
+  outline: none;
+  cursor: pointer;
+  border-radius: 3px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.8em;
+  font-weight: 400;
+  color: #FFF; }
+  .button:focus:active {
+    background: #3071A9; }
+
+/*# sourceMappingURL=style.css.map */

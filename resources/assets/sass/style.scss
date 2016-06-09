@@ -13,87 +13,77 @@ $bs-props: 0 1px 3px rgba(0,0,0,0.100), 0 1px 3px rgba(0,0,0,0.100);
 	font-weight: $weight;	
 	color: $color;
 }
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+@mixin disable-select {
+	user-select: none;
 }
-body {
-	background: #F5F5F1;
-}
-.container {
-	max-width: 1200px;
-	padding: 12px;
-	margin: 100px auto;
-	overflow: auto;
-	background: #FFF;
-	@include box-props;
-	position: relative;
-}
-
-.header {
-	padding-bottom: 12px;
-	
-	& > span {
-		display: block;
-		@include font-props(1.950em, #555, 200);
-		cursor: default;
-	}
-}
-
 .input {
 	padding: 6px;
 	border: 0;
 	outline: none;
 }
 
-.note-box {
-	float: right;
-	width: 780px;
-
-	.note-props {
-		height: 46px;
-		padding-bottom: 12px;
-		border-bottom: 1px Solid #EEE;
-		margin-bottom: 12px;
-
-		& > input[type="text"] {
-			width: 100%;
-			height: 42px;
-			@include font-props(1.350em, #444);
-			@extend .input;
-		}
-	}
-
-	textarea {
-		width: 100%;
-		min-height: 360px;
-		margin-bottom: 12px;
-		resize: vertical;
-		border-bottom: 1px Solid #EEE;
-		@include font-props(0.9em, #666);
-		@extend .input;
-	}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body, html {
+	height: 100%;
+}
+.container {
+	height: 100%;
+	position: relative;
+	overflow: auto;
+	background: #FFF;
 }
 
+$headerHeight: 60px;
+$sideContainerWidth: 360px;
 .note-side-container {
-	float: left;
-	width: 340px;
-
+	position: relative;
+	top: 0;
+	left: 0;
+	height: inherit;
+	width: $sideContainerWidth;
+	border-right: 1px Solid #F9F9F9;
+	
 	.header {
-		position: relative;
+		height: $headerHeight;
+		border-bottom: 1px Solid #EEE;
+
+		& > span {
+			display: block;
+			float: left;
+			height: inherit;
+			line-height: $headerHeight;
+			margin-left: 12px;
+			cursor: default;
+			@include font-props(1.950em, #555, 200);
+		}
 
 		& > .button {
-			position: absolute;
-			top: 0;
-			right: 0;
+			float: right;
+			margin: 12px;
 		}
+	}
+
+	.note-list-container {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		width: inherit;
+		margin-top: $headerHeight;
 	}
 }
 
 .note-list {
-	max-height: 650px;
-	overflow-y: auto;
+	overflow-y: scroll;
+	height: 100%;
+
+	& > .active {
+		background: #F9F9F9;
+	}
 
 	.note-container {
 		position: relative;
@@ -101,6 +91,7 @@ body {
 		border: 1px Solid transparent;
 		border-bottom: 1px Solid #EEE;
 		cursor: pointer;
+		@include disable-select;
 
 		&:hover {
 			background: #F9F9F9;
@@ -109,11 +100,15 @@ body {
 			& > .note-options { display: block; }
 		}
 
+		&:last-child {
+			border-bottom: none;
+		}
+
 		.note-name {
 			margin-bottom: 6px;
-			max-height: 54px;
+			max-height: 46px;
 			overflow: hidden;
-			@include font-props(1.2em, #222);
+			@include font-props(1.05em, #444);
 			word-wrap: break-word;
 		}
 
@@ -155,9 +150,32 @@ body {
 }
 
 .note-view {
-	width: 600px;
-	height: 500px;
-	background: #000;
+	position: absolute;
+	top: 0;
+	left: $sideContainerWidth + 40px;
+	right: 0;
+	height: inherit;
+	min-width: 400px;
+	padding: 24px;
+
+	.note-props {
+		height: 46px;
+
+		& > input[type="text"] {
+			width: 100%;
+			height: inherit;
+			@extend .input;
+			@include font-props(1.950em, #3071A9, 200);
+		}
+	}
+
+	& > textarea {
+		width: 100%;
+		height: 400px;
+		resize: vertical;
+		@extend .input;
+		@include font-props(0.9em, #666);
+	}
 }
 
 .button {

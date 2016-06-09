@@ -28,6 +28,8 @@ function ClearNoteView() {
 
 	_noteName.val('');
 	_noteContent.val('');
+
+	List.clearFocus();
 }
 
 function noteTemplate(obj) {
@@ -35,13 +37,18 @@ function noteTemplate(obj) {
 		dateTime = date[2] + '.' + date[1] + '.' + date[0];
 		dateTime += ' @ ' + date[3] + ':' + date[4] + ':' + date[5];
 
-	var note = '<div class="note-container" target="' + obj.id + '">';
+	var note = '<div class="note-container" data-target="' + obj.id + '">';
 		note += '<div class="note-options"><div class="note-remove"></div></div>';
-		note += '<div class="note-name">' + obj.name + '</div>';
+		note += '<div class="note-name"></div>';
 		note += '<div class="note-date">' + dateTime + '</div>';
-		note += '<div class="note-content">' + obj.content + '</div>';
+		note += '<div class="note-content"></div>';
 		note += '</div>';
-	return note;
+	
+	var $note = $(note);
+	$note.find('.note-name').text(obj.name);
+	$note.find('.note-content').text(obj.content);
+	
+	return $note;
 }
 
 function notes(props, callback) {
@@ -82,19 +89,43 @@ function notes(props, callback) {
 	});
 }
 
-function getNote(id) {
-	return _noteList.find('.note-container[target=' + id + ']');
-}
+var List = {
+	notes: function() {
+		return _noteList.children('div');
+	},
+	append: function(data) {
+		_noteList.append(noteTemplate(data));
+	},
+	prepend: function(data) {
+		_noteList.prepend(noteTemplate(data));
+	},
+	getNote: function(id) {
+		return _noteList.find('.note-container[data-target=' + id + ']');
+	}, 
+	removeNote: function(id) {
+		this.getNote(id).remove();
+	},
+	clearFocus: function() {
+		this.notes().removeClass('active');
+	},
+	focusNote: function(id) {
+		var note = this.getNote(id);
+		if(note.hasClass('active')) return;
 
-function setupNote(name, content = '') {
+		if(this.notes().hasClass("active")) this.notes().removeClass("active");
+		note.addClass('active');
+	}
+};
+
+function setupNote(name = '', content = '') {
 	notes({ action: 'set', data: { name: name, content: content } }, function(data) {
 		if(data.status) {
 			notes({ action: 'get', note: data.id }, function(data) {
-				_noteList.prepend(noteTemplate(data.note));
-				SetNoteView(data.note);
+				var note = data.note;
+				List.prepend(note); SetNoteView(note);
 
-				getNote(noteView.id).hide().fadeIn(250);
-				if(name == 'Untitled' || name.length == 0) _noteName.focus();
+				List.getNote(noteView.id).hide().fadeIn(250);
+				List.focusNote(noteView.id);;
 			});
 		}
 	});
@@ -105,33 +136,34 @@ $(document).ready(function() {
 	_noteList = $('.note-list');
 	_noteName = $('#note-name');
 	_noteContent = $('#note-content');
+
 	
 	// Load notes by default
 	notes({ action: 'get' }, function(data) {
 		var notes = data.notes;
 
 		if(typeof(notes.length) == 'undefined') {
-			_noteList.append(noteTemplate(notes));
+			List.append(notes);
 			return;
 		}
 
 		if(notes.length) {
 			for(var i = 0; i < notes.length; i++) {
-				_noteList.append(noteTemplate(notes[i]));
+				List.append(notes[i]);
 			}
 		} 
 	});
 
 	// Add new note
 	$('#new-note').click(function() {
-		setupNote('Untitled');
+		ClearNoteView(); _noteName.focus();
 	});
 
 	// Note click selected
 	$('.note-list').on('click', '.note-container', function() {
-		notes({ action: 'get', note: $(this).attr('target') }, function(data) {
+		notes({ action: 'get', note: $(this).attr('data-target') }, function(data) {
 			SetNoteView(data.note);
-			// Add background focus here.
+			List.focusNote(noteView.id);
 		});
 	});
 
@@ -141,7 +173,7 @@ $(document).ready(function() {
 		if(!confirm("Are you sure?")) return;
 
 		var el = $(this).parents('.note-container'),
-			target = el.attr('target');
+			target = el.attr('data-target');
 
 		notes({ action: 'delete', note: target }, function(data) {
 			if(data.status) {
@@ -176,9 +208,9 @@ $(document).ready(function() {
 
 		notes({ action: 'update', note: noteView.id, data: dataPack }, function(data) {
 			if(data.status) {
-				var el = getNote(noteView.id);
-					el.find('.note-name').html(noteView.name);
-					el.find('.note-content').html(noteView.content);
+				var el = List.getNote(noteView.id);
+				el.find('.note-name').text(noteView.name);
+				el.find('.note-content').text(noteView.content);
 			}
 		});
 	});

@@ -10,7 +10,8 @@ class NotesController extends Controller
 {
     public function index() 
     {
-        return array('notes' => Note::orderBy('id', 'desc')->get());
+        $notes = Note::orderBy('id', 'desc')->get();
+        return array('notes' => $notes);
     }
 
     public function show($id)

@@ -5,6 +5,7 @@
   },
   "dependencies": {
     "laravel-elixir": "^4.0.0",
-    "bootstrap-sass": "^3.0.0"
+    "bootstrap-sass": "^3.0.0",
+    "angular2": "2.0.0-beta.9"
   }
 }

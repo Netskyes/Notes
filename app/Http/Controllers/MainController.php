@@ -13,4 +13,9 @@ class MainController extends Controller
         $notes = Note::all();
         return view('main', compact('notes'));
     }
+
+    public function login() 
+    {
+    	return view('login');
+    }
 }

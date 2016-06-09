@@ -1,95 +1,84 @@
+.input, .note-view .note-props > input[type="text"], .note-view > textarea {
+  padding: 6px;
+  border: 0;
+  outline: none; }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box; }
 
-body {
-  background: #F5F5F1; }
+body, html {
+  height: 100%; }
 
 .container {
-  max-width: 1200px;
-  padding: 12px;
-  margin: 100px auto;
+  height: 100%;
+  position: relative;
   overflow: auto;
-  background: #FFF;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #EAEAEA;
-  border-radius: 2px;
-  position: relative; }
-
-.header {
-  padding-bottom: 12px; }
-  .header > span {
-    display: block;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1.95em;
-    font-weight: 200;
-    color: #555;
-    cursor: default; }
-
-.input, .note-box .note-props > input[type="text"], .note-box textarea {
-  padding: 6px;
-  border: 0;
-  outline: none; }
-
-.note-box {
-  float: right;
-  width: 780px; }
-  .note-box .note-props {
-    height: 46px;
-    padding-bottom: 12px;
-    border-bottom: 1px Solid #EEE;
-    margin-bottom: 12px; }
-    .note-box .note-props > input[type="text"] {
-      width: 100%;
-      height: 42px;
-      font-family: 'Open Sans', sans-serif;
-      font-size: 1.35em;
-      font-weight: 400;
-      color: #444; }
-  .note-box textarea {
-    width: 100%;
-    min-height: 360px;
-    margin-bottom: 12px;
-    resize: vertical;
-    border-bottom: 1px Solid #EEE;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 0.9em;
-    font-weight: 400;
-    color: #666; }
+  background: #FFF; }
 
 .note-side-container {
-  float: left;
-  width: 340px; }
+  position: relative;
+  top: 0;
+  left: 0;
+  height: inherit;
+  width: 360px;
+  border-right: 1px Solid #F9F9F9; }
   .note-side-container .header {
-    position: relative; }
+    height: 60px;
+    border-bottom: 1px Solid #EEE; }
+    .note-side-container .header > span {
+      display: block;
+      float: left;
+      height: inherit;
+      line-height: 60px;
+      margin-left: 12px;
+      cursor: default;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.95em;
+      font-weight: 200;
+      color: #555; }
     .note-side-container .header > .button {
-      position: absolute;
-      top: 0;
-      right: 0; }
+      float: right;
+      margin: 12px; }
+  .note-side-container .note-list-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: inherit;
+    margin-top: 60px; }
 
 .note-list {
-  max-height: 650px;
-  overflow-y: auto; }
+  overflow-y: scroll;
+  height: 100%; }
+  .note-list > .active {
+    background: #F9F9F9; }
   .note-list .note-container {
     position: relative;
     padding: 17px;
     border: 1px Solid transparent;
     border-bottom: 1px Solid #EEE;
-    cursor: pointer; }
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
     .note-list .note-container:hover {
       background: #F9F9F9;
       border: 1px Solid #EAEAEA; }
       .note-list .note-container:hover > .note-options {
         display: block; }
+    .note-list .note-container:last-child {
+      border-bottom: none; }
     .note-list .note-container .note-name {
       margin-bottom: 6px;
-      max-height: 54px;
+      max-height: 46px;
       overflow: hidden;
       font-family: 'Open Sans', sans-serif;
-      font-size: 1.2em;
+      font-size: 1.05em;
       font-weight: 400;
-      color: #222;
+      color: #444;
       word-wrap: break-word; }
     .note-list .note-container .note-date {
       margin-bottom: 6px;
@@ -122,9 +111,30 @@ body {
           background-position: center -52px; }
 
 .note-view {
-  width: 600px;
-  height: 500px;
-  background: #000; }
+  position: absolute;
+  top: 0;
+  left: 400px;
+  right: 0;
+  height: inherit;
+  min-width: 400px;
+  padding: 24px; }
+  .note-view .note-props {
+    height: 46px; }
+    .note-view .note-props > input[type="text"] {
+      width: 100%;
+      height: inherit;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.95em;
+      font-weight: 200;
+      color: #3071A9; }
+  .note-view > textarea {
+    width: 100%;
+    height: 400px;
+    resize: vertical;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9em;
+    font-weight: 400;
+    color: #666; }
 
 .button {
   display: block;
